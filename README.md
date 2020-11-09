@@ -53,7 +53,7 @@ The content of this page covers the following topics:
     ```
 - Download OPIEC
 
-    **Only** if you want to recreate OLPBENCH from scratch!
+    **ONLY** if you want to recreate OLPBENCH from scratch!
 
     Download the OPIEC clean dataset (compressed: ~ 35 GB, uncompressed: ~ 292.4 GB)
 
