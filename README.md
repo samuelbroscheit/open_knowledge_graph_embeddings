@@ -148,9 +148,9 @@ class BigramPoolingDistmultRelationModel(DistmultRelationScorer, BigramPoolingRe
 
 
     
-#### Create OLPBENCH from scratch
+## Create OLPBENCH from scratch
 
-ONLY if you want to create OLPENCH or a variant of it from scratch!
+*ONLY if you want to create OLPENCH or a variant of it from scratch! This takes around half a day and a lot of memory to run. Best setting is at minimum a 40 core machine with at least 64GB of free main memory.*
 
 Download the OPIEC clean dataset (compressed: ~ 35 GB, uncompressed: ~ 292.4 GB)
 
