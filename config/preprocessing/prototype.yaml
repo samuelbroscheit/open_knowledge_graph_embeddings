@@ -1,0 +1,36 @@
+debug: False
+verbose: False
+data_version_name: prototype
+uncased: True
+
+# preprocess avro options
+process_avro__log_every: 1000
+# directory name under data/
+process_avro__opiec_dir: OPIEC-Clean
+# process this many OPIEC avro files (only for creating smaller prototype data
+# otherwise set to -1
+process_avro__debug_file_nr: 2
+# nr of worker for preprocessing
+process_avro__nr_of_workers: 6
+# nr of tokens for relations
+process_avro__len_relation_word: 10
+# nr of tokens for subject entities
+process_avro__len_subject_word: 10
+# nr of tokens for object entities
+process_avro__len_object_word: 10
+process_avro__minimum_total_count_for_mentions_per_entity: 5
+process_avro__the_top_k_mentions_per_entity: 10
+process_avro__min_mention_occurrence_count: 5
+
+# preprocess triples options
+process_triples__mention_tokens_vocab_size: 20000
+process_triples__relation_tokens_vocab_size: 5000
+
+# sample_evaluation options
+sample_evaluation__min_relation_token_length_for_testing: 3
+sample_evaluation__eval_data_size: 50
+
+# create_elasticsearch_index options
+create_elasticsearch_index__host: localhost
+
+num_workers: 10

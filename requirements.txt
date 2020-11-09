@@ -1,0 +1,5 @@
+torch>=1.5.1
+elasticsearch
+avro
+numpy
+pandas

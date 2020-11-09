@@ -1,0 +1,210 @@
+############### META
+
+# cuda devices to use
+devices: 0
+# turn off cuda, i.e. GPU usage
+no_cuda: false
+# seed for the RNG
+seed: 0
+# save output to base directory
+results_dir: null
+# leave empty if left empty (null, None) then a name is automatically generated
+experiment_dir: null
+
+############### TASKS
+
+# train and validate
+train: true
+# evaluate on test
+evaluate: false
+
+############### MODEL
+
+# configure the model class
+model: LookupComplexRelationModel
+# configure the model's arguments
+model_config:
+  entity_slot_size: 200
+  input_dropout: 0.4
+  init_std: 0.1
+  sparse: false
+
+experiment_settings:
+  # choose loss out of bce, kl, ce
+  loss: bce
+  # should entity embeddings be computed from tokens?
+  replace_entities_by_tokens: false
+  # should relation embeddings be computed from tokens?
+  replace_relations_by_tokens: false
+  # max token length for subject and relation mentions
+  max_lengths_tuple: [10, 10]
+
+
+############### TRAINING
+
+# max epochs to run
+epochs: 100
+# global batch size (can be overridden for train, valid and test,; see DATASET)
+batch_size: 512
+# label smoothing for BCE loss
+bce_label_smoothing: 0.0
+# learning rate schduler config kwargs dict to tunnel through to pytorch;
+# set lr_scheduler to a Pytorch scheduler, none/None else
+lr_scheduler_config: null
+# gradient clipping
+grad_clip: 0
+
+
+# optimizer config kwargs dict to tunnel through to Pytorch; set optimizer
+# to a known Pytorch optimizer and the rest to its arguments
+optimization_config:
+  optimizer: Adagrad
+  epoch: 0
+  lr: 0.3
+  weight_decay: 1.e-10
+
+# print stats every this many batch steps
+print_freq: 100
+# save every this many epochs
+save_epoch_freq: 25
+# save every this many batch steps
+save_freq: -1
+# evaluate every this many epochs
+eval_epoch_freq: 5
+# evaluate every this many batch steps
+eval_freq: 2000
+
+############### MODEL SELECTION
+
+# Perform model selection, early stopping, keeping best models according to these
+# metrics. The first of the list will be used for early stopping, for the remaining
+# metrics the best models will be saved.
+# Available metrics: loss, mrr, mr, h1, h3, h10, h50
+model_select_metric:
+- mrr
+
+# Patience for early stopping for this many epochs no improvement should occur
+# before we stop training
+patience_epochs: 50
+# improvements smaller than this will not be counted
+patience_metric_change: 1.0e-05
+# depending on the metric (smaller better or larger better), set the minimum or
+# maximum value the metric shoulkd achieve after the initial patience_epochs
+patience_metric_min_treshold: null
+patience_metric_max_treshold: null
+
+
+############### DATASET
+
+
+# Configure the default dataset class for all splits, with the following choices:
+#
+# OneToNMentionRelationDataset:
+#
+#   Dataset format:
+#
+#   This dataset class works especially with KGE dataset where the entities
+#   can be realized with different alternative mentions.
+#
+#   The data format contains the following TAB separated fields per line:
+#   5 TAB separated columns, COL 4 and COL 5 are lists of space seperated ids:
+#
+#   COL 1		COL 2           COL 3		COL 4			COL 5
+#   entity id	relation id	    entity id	subj entity ids	obj entity ids
+#
+#   This dataset can also be used for standard KGE tasks, then COL 4 and
+#   COL 5 are identical to COL 1 and COL 3
+#
+#
+#   Batch construction:
+#
+#   The set of answer entities of all examples in the batch are shared accross
+#   all examples of the the batch as true or false labels.
+#
+#   For example, given a batch containing the subject-relation prefix (1, 2) with
+#   object answers [3, 4], and relation-object suffix (4, 5) with subject
+#   answers [1, 7, 8], then the batch will be constructed as
+#
+#   potential batch shared entity answers [1, 3, 4, 7, 8]
+#
+#   sp prefixes: (1, 2) labels: [0, 1, 1, 0, 0]
+#
+#   po prefixes: (4, 5) labels: [1, 0, 0, 1, 1]
+#
+#
+#   Apart from batch_size, the batch construction is influcenced by the following
+#   two parameters:
+#
+#   Minimum label size for *batch construction*, i.e. when are less batch shared
+#   entity answers than min_size_batch_labels, then new randomly sampled entities
+#   are added to that set.
+#
+#   min_size_batch_labels: 4096
+#
+#
+#   Maximium label size during *creation of training examples*, i.e. if a
+#   (subject,relation) prefix has more than max_size_prefix_label number of true
+#   answers the answers are split up into chunks. The (subject,relation) example
+#   is then repeated during training for each chunk.
+#
+#   max_size_prefix_label: 64
+
+dataset_dir: data/FB15k-237/mapped_to_ids
+
+dataset_class: OneToNMentionRelationDataset
+
+# this overrides the default dataset_class
+training_dataset_class: OneToNMentionRelationDataset
+
+# training data settings
+train_data_config:
+  input_file: train.txt
+  batch_size: 512 # if batch size undefined here then global batch size is used
+  use_batch_shared_entities: False
+#  min_size_batch_labels: 4096
+#  max_size_prefix_label: 64
+
+
+# this overrides the default dataset_class
+validation_dataset_class: OneToNMentionRelationDataset
+# validation data settings
+val_data_config:
+  input_file: valid.txt
+  batch_size: 512 # if batch size undefined here then global batch size is used
+  use_batch_shared_entities: False
+#  min_size_batch_labels: -1
+#  max_size_prefix_label: -1
+
+# this overrides the default dataset_class
+test_dataset_class: OneToNMentionRelationDataset
+# test data settings
+test_data_config:
+  input_file: test.txt
+  batch_size: 512 # if batch size undefined here then global batch size is used
+  use_batch_shared_entities: False
+#  min_size_batch_labels: -1
+#  max_size_prefix_label: -1
+
+
+############### EVALUATION
+
+evaluate_on_validation: true
+evaluate_scores_file: null
+log_predictions: false
+
+
+############### RESUMING
+
+# set a checkpoint path here, in conjunction with 'train: false', 'evaluate: true'
+# 'evaluate_on_validation: false' this is used for testing.
+resume: ''
+# a whitelist of the parameter names for resuming a model
+resume_filter: null
+# a blacklist of the parameter names for resuming a model
+resume_freeze: null
+# load the args from the checkoint instead of this configurations args
+resume_load_args: true
+# reset optimizer when resuming
+reset_optimizer: false
+# start epoch for optimzation regime
+#start_epoch: 0
