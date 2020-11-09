@@ -2,17 +2,12 @@
 
 This repository contains the code for the ACL 2020 paper [**"Can We Predict New Facts with Open Knowledge Graph Embeddings? A Benchmark for Open Link Prediction"**](https://www.aclweb.org/anthology/2020.acl-main.209/). The code provides the means to train open knowledge graph embeddings and the code that was used to create the benchmark OLPBENCH. The code is provided as a documentation for the paper and also for follow-up research.
 
-# <p align="center"> <img src="docs/lp_vs_olp.png" alt="link prediction vs open link prediction" width="70%"> </p>
+# <p align="center"> <img src="docs/lp_vs_olp.png" alt="link prediction vs open link prediction" width="50%"> </p>
 
 The content of this page covers the following topics: 
 
 1. [Preparation and Installation](#preparation-and-installation)
-2. [Training Open Knowledge Graph Embedding Model on OLPBENCH](#training)
-3. [Issues and possible improvements](#issues-and-possible-improvements)
-
-
-
-
+2. [Training an Open Knowledge Graph Embedding Model on OLPBENCH](#training)
 
 
 
@@ -51,42 +46,6 @@ The content of this page covers the following topics:
     tar xzf olpbench.tar.gz
     cd ..
     ```
-    
-#### ONLY if you want to recreate OLPBENCH from scratch !
-
-Download the OPIEC clean dataset (compressed: ~ 35 GB, uncompressed: ~ 292.4 GB)
-
-```
-cd data
-wget http://data.dws.informatik.uni-mannheim.de/opiec/OPIEC-Clean.zip
-unzip OPIEC-Clean.zip
-cd ..
-```
-
-Then download and start an Elasticsearch server, that should listen on localhost:9200 . This is usually as easy as downloading the most recent version, unzip it in some folder, then change the default configuration to
-
-```
-cluster node.local: true # disable network
-```
-
-and then start the server in with ./bin/elasticsearch. Then run the preprocessing with 
-
-```
-python scripts/create_data.py -c config/preprocessing/prototype.yaml
-```
-
-###### Prepared configurations for creating OLPBENCH from scratch
-    
-
-- [config/preprocessing/prototype.yaml](config/preprocessing/prototype.yaml) a configuration for prototyping the pipeline
-
-- [config/preprocessing/acl2020.yaml](config/preprocessing/acl2020.yaml) the configurations with the settings from the ACL2020 study
-
-
-
-
-
-
 
 
 
@@ -191,6 +150,44 @@ class BigramPoolingDistmultRelationModel(DistmultRelationScorer, BigramPoolingRe
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 ```  
+
+
+
+    
+#### Create OLPBENCH from scratch
+
+ONLY if you want to create OLPENCH or a variant of it from scratch!
+
+Download the OPIEC clean dataset (compressed: ~ 35 GB, uncompressed: ~ 292.4 GB)
+
+```
+cd data
+wget http://data.dws.informatik.uni-mannheim.de/opiec/OPIEC-Clean.zip
+unzip OPIEC-Clean.zip
+cd ..
+```
+
+Then download and start an Elasticsearch server, that should listen on localhost:9200 . This is usually as easy as downloading the most recent version, unzip it in some folder, then change the default configuration to
+
+```
+cluster node.local: true # disable network
+```
+
+and then start the server in with ./bin/elasticsearch. Then run the preprocessing with 
+
+```
+python scripts/create_data.py -c config/preprocessing/prototype.yaml
+```
+
+###### Prepared configurations to create OLPBENCH from scratch
+    
+
+- [config/preprocessing/prototype.yaml](config/preprocessing/prototype.yaml) a configuration for prototyping the pipeline
+
+- [config/preprocessing/acl2020.yaml](config/preprocessing/acl2020.yaml) the configurations with the settings from the ACL2020 study
+
+
+
 
 
 
