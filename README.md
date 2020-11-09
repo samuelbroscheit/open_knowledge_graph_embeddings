@@ -8,7 +8,7 @@ The content of this page covers the following topics:
 
 1. [Preparation and Installation](#preparation-and-installation)
 2. [Training an Open Knowledge Graph Embedding Model on OLPBENCH](#training)
-
+3. [Create OLPBENCH from scratch](#create-olpbench-from-scratch)
 
 
 
@@ -78,7 +78,7 @@ If you run training on a dataset the first time some indexes will be created and
     
 A token-based model for the OLPBench benchmark.
 
-- [config/acl2020-openlink/wikiopenlink-thorough-complex-lstm.yaml](config/acl2020-openlink/wikiopenlink-thorough-complex-lstm.yaml) a configuration for one of the experiments of the ACL2020 study.
+- [config/acl2020-openlink/wikiopenlink-thorough-complex-lstm.yaml](config/acl2020-openlink/wikiopenlink-thorough-complex-lstm.yaml) is a configuration to train a OpenKGE model on the open link benchmark data.
 
 
 Two example models for the the Freebase FB15k-237 benchmark. Suggested for prototyping token based models.
@@ -105,12 +105,6 @@ _--resume_ expects the path to a checkpoint file. Checkpoints of the current sta
 
 _--evaluate_on_validation False_ sets the evaluation to run on test data
 
-
-### Prepared configurations
-
-In the config folder you will find the following configurations:
-
-- [config/acl2020-openlink/wikiopenlink-thorough-complex-lstm.yaml](config/acl2020-openlink/wikiopenlink-thorough-complex-lstm.yaml) is a configuration to train a OpenKGE model on the open link benchmark data.
 
 ### Models
 
