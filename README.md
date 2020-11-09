@@ -155,21 +155,24 @@ In the config folder you will find the following configurations:
 
 ### Models
 
+See [openkge/model.py](openkge/model.py)
+
 ###### Lookup based models (standard KGE)
 
 -    LookupTucker3RelationModel 
 -    LookupDistmultRelationModel
 -    LookupComplexRelationModel
 
-###### Token based models 
+###### Token based model to compute the entity and relation embeddings by pooling token embeddings
 
-*Compute the entity and relation embeddings by pooling token embeddings*
 -    UnigramPoolingComplexRelationModel
 
-*Compute the entity and relation embeddings with a sliding window CNN*
+###### Token based model to compute the entity and relation embeddings with a sliding window CNN
+
 -    BigramPoolingComplexRelationModel 
 
-*Compute the entity and relation embeddings with a LSTM*
+###### Token based model to compute the entity and relation embeddings with a LSTM
+
 -    LSTMDistmultRelationModel 
 -    LSTMComplexRelationModel
 -    LSTMTucker3RelationModel
@@ -180,7 +183,7 @@ In the config folder you will find the following configurations:
 -    DataBiasOnlyRelationModel 
 
 
-For model options see the init of the respective class. Additional combinations of score and embedding functions can be easily created:
+For model options see the init of the respective class in [openkge/model.py](openkge/model.py). Additional to the combinations above, new combinations of score and embedding functions can be easily created by:
 
 ```  
 class BigramPoolingDistmultRelationModel(DistmultRelationScorer, BigramPoolingRelationEmbedder):
