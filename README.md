@@ -75,8 +75,10 @@ The content of this page covers the following topics:
     ```
     python scripts/create_data.py -c config/preprocessing/prototype.yaml
     ```
+
+
+###### Prepared configurations
     
-    There are two configurations prepared
 
 - [config/preprocessing/prototype.yaml](config/preprocessing/prototype.yaml) a configuration for prototyping
 
@@ -110,7 +112,23 @@ TRAIN_CONFIG_YAML is a yaml config file. The possible options are documented in:
 
 [openkge/default.yaml](openkge/default.yaml)
 
-All top level options can also be given set on the command line.
+All top level options can also be set on the command line and override the yaml confguration.
+
+
+###### Prepared configurations
+    
+A token-based model for the OLPBench benchmark.
+
+- [config/acl2020-openlink/wikiopenlink-thorough-complex-lstm.yaml](config/acl2020-openlink/wikiopenlink-thorough-complex-lstm.yaml) a configuration for one of the experiments of the ACL2020 study.
+
+
+A various models for the the Freebase FB15k-237 benchmark. Suggested for prototyping token based models.
+
+- [config/fb15k237/fb15k237-complex-lstm.yaml](config/fb15k237/fb15k237-complex-lstm.yaml)  
+
+- [config/fb15k237/fb15k237-complex-unigrampool.yaml](config/fb15k237/fb15k237-complex-unigrampool.yaml) 
+
+- [config/fb15k237/fb15k237-complex-kge.yaml](config/fb15k237/fb15k237-complex-kge.yaml) 
 
 ### Run evaluation
 
