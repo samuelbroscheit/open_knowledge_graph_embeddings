@@ -1,6 +1,6 @@
 # Can We Predict New Facts with Open Knowledge Graph Embeddings? A Benchmark for Open Link Prediction
 
-This repository contains the code for the ACL 2020 paper [**"Can We Predict New Facts with Open Knowledge Graph Embeddings? A Benchmark for Open Link Prediction"**](https://www.aclweb.org/anthology/2020.acl-main.209/). The code is provided as a documentation for the paper and also for follow-up research.
+This repository contains the code for the ACL 2020 paper [**"Can We Predict New Facts with Open Knowledge Graph Embeddings? A Benchmark for Open Link Prediction"**](https://www.aclweb.org/anthology/2020.acl-main.209/). The code provides the means to train open knowledge graph embeddings and the code that was used to create the benchmark OLPBENCH. The code is provided as a documentation for the paper and also for follow-up research.
 
 # <p align="center"> <img src="docs/lp_vs_olp.png" alt="link prediction vs open link prediction" width="70%"> </p>
 
@@ -64,7 +64,7 @@ The content of this page covers the following topics:
     cd ..
     ```
 
-    Then download and start and Elasticsearch server, that should listen on localhost:9200 . This is usually as easy as downloading the most recent version, unzip it, change the default configuration to
+    Then download and start an Elasticsearch server, that should listen on localhost:9200 . This is usually as easy as downloading the most recent version, unzip it in some folder, then change the default configuration to
 
     ```
     cluster node.local: true # disable network
@@ -82,7 +82,7 @@ The content of this page covers the following topics:
 
 - [config/preprocessing/prototype.yaml](config/preprocessing/prototype.yaml) a configuration for prototyping
 
-- [config/preprocessing/acl2020.yaml](config/preprocessing/acl2020.yaml) the configurations with the settings fomr the ACL2020 study
+- [config/preprocessing/acl2020.yaml](config/preprocessing/acl2020.yaml) the configurations with the settings from the ACL2020 study
 
 
 
