@@ -51,36 +51,34 @@ The content of this page covers the following topics:
     tar xzf olpbench.tar.gz
     cd ..
     ```
-- Download OPIEC
-
-    **ONLY** if you want to recreate OLPBENCH from scratch!
-
-    Download the OPIEC clean dataset (compressed: ~ 35 GB, uncompressed: ~ 292.4 GB)
-
-    ```
-    cd data
-    wget http://data.dws.informatik.uni-mannheim.de/opiec/OPIEC-Clean.zip
-    unzip OPIEC-Clean.zip
-    cd ..
-    ```
-
-    Then download and start an Elasticsearch server, that should listen on localhost:9200 . This is usually as easy as downloading the most recent version, unzip it in some folder, then change the default configuration to
-
-    ```
-    cluster node.local: true # disable network
-    ```
-
-    and then start the server in with ./bin/elasticsearch. Then run the preprocessing with 
     
-    ```
-    python scripts/create_data.py -c config/preprocessing/prototype.yaml
-    ```
+#### ONLY if you want to recreate OLPBENCH from scratch !
 
+Download the OPIEC clean dataset (compressed: ~ 35 GB, uncompressed: ~ 292.4 GB)
 
-###### Prepared configurations
+```
+cd data
+wget http://data.dws.informatik.uni-mannheim.de/opiec/OPIEC-Clean.zip
+unzip OPIEC-Clean.zip
+cd ..
+```
+
+Then download and start an Elasticsearch server, that should listen on localhost:9200 . This is usually as easy as downloading the most recent version, unzip it in some folder, then change the default configuration to
+
+```
+cluster node.local: true # disable network
+```
+
+and then start the server in with ./bin/elasticsearch. Then run the preprocessing with 
+
+```
+python scripts/create_data.py -c config/preprocessing/prototype.yaml
+```
+
+###### Prepared configurations for creating OLPBENCH from scratch
     
 
-- [config/preprocessing/prototype.yaml](config/preprocessing/prototype.yaml) a configuration for prototyping
+- [config/preprocessing/prototype.yaml](config/preprocessing/prototype.yaml) a configuration for prototyping the pipeline
 
 - [config/preprocessing/acl2020.yaml](config/preprocessing/acl2020.yaml) the configurations with the settings from the ACL2020 study
 
@@ -98,7 +96,7 @@ Once preparation and installation are finished you can train a model on OLPBENCH
 
 1. [Run training](#run-training)
 2. [Prepared configurations](#prepared-configurations)
-3. [Available options](#available-options)
+3. [Models](#models)
 
 ### Run training
 
@@ -114,6 +112,8 @@ TRAIN_CONFIG_YAML is a yaml config file. The possible options are documented in:
 
 All top level options can also be set on the command line and override the yaml confguration.
 
+If you run training on a dataset the first time some indexes will be created and cached. For OLPBENCH this can take around 30 minutes and up to 10-20 GB of main memory! After the cached files are created the startup takes under 1 minute. 
+
 
 ###### Prepared configurations
     
@@ -122,23 +122,27 @@ A token-based model for the OLPBench benchmark.
 - [config/acl2020-openlink/wikiopenlink-thorough-complex-lstm.yaml](config/acl2020-openlink/wikiopenlink-thorough-complex-lstm.yaml) a configuration for one of the experiments of the ACL2020 study.
 
 
-A various models for the the Freebase FB15k-237 benchmark. Suggested for prototyping token based models.
+Two example models for the the Freebase FB15k-237 benchmark. Suggested for prototyping token based models.
 
 - [config/fb15k237/fb15k237-complex-lstm.yaml](config/fb15k237/fb15k237-complex-lstm.yaml)  
 
 - [config/fb15k237/fb15k237-complex-unigrampool.yaml](config/fb15k237/fb15k237-complex-unigrampool.yaml) 
 
+
+An example standard KGE model for the the Freebase FB15k-237 benchmark.
+
 - [config/fb15k237/fb15k237-complex-kge.yaml](config/fb15k237/fb15k237-complex-kge.yaml) 
+
 
 ### Run evaluation
 
-Run evaluation on test data with:
+Run evaluation after training on test data with:
 
 ```  
 python scripts/train.py --resume data/experiments/.../checkpoint.pth.tar --evaluate True --evaluate_on_validation False
 ```  
 
-_--resume_ epects the path to a checkpoint file
+_--resume_ expects the path to a checkpoint file. Checkpoints of the current state and also the best model(s) w.r.t. a model selection metric are saved during training.  
 
 _--evaluate_on_validation False_ sets the evaluation to run on test data
 
