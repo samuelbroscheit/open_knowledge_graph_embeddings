@@ -151,7 +151,7 @@ patience_metric_max_treshold: null
 #
 #   max_size_prefix_label: 64
 
-dataset_dir: data/FB15k-237/mapped_to_ids
+dataset_dir: data/fb15k237
 
 dataset_class: OneToNMentionRelationDataset
 
