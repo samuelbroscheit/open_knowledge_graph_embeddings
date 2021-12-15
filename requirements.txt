@@ -1,4 +1,4 @@
-torch>=1.5.1
+torch>=1.10.0
 elasticsearch
 avro
 numpy

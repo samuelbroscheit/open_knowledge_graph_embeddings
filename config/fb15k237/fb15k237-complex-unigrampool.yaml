@@ -7,7 +7,7 @@ no_cuda: false
 # seed for the RNG
 seed: 0
 # save output to base directory
-results_dir: data/experiments/fb15k237/
+results_dir: data/experiments/fb237/
 # leave empty if left empty (null, None) then a name is automatically generated
 experiment_dir: null
 
@@ -151,7 +151,7 @@ patience_metric_max_treshold: null
 #
 #   max_size_prefix_label: 64
 
-dataset_dir: data/fb15k237
+dataset_dir: data/fb15k237/mapped_to_ids
 
 dataset_class: OneToNMentionRelationDataset
 

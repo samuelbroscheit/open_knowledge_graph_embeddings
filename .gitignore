@@ -161,3 +161,6 @@ venv.bak/
 *.avro
 
 ignore
+/data/local/
+/data/fb15k237/mapped_to_ids/
+/data/experiments/

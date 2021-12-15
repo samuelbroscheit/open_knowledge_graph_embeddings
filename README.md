@@ -74,7 +74,7 @@ All top level options can also be set on the command line and override the yaml 
 If you run training on a dataset the first time some indexes will be created and cached. For OLPBENCH this can take around 30 minutes and up to 10-20 GB of main memory! After the cached files are created the startup takes under 1 minute. 
 
 
-###### Prepared configurations
+##### Prepared configurations
     
 A token-based model for the OLPBench benchmark.
 
@@ -110,27 +110,27 @@ _--evaluate_on_validation False_ sets the evaluation to run on test data
 
 See [openkge/model.py](openkge/model.py)
 
-###### Lookup based models (standard KGE)
+##### Lookup based models (standard KGE)
 
 -    LookupTucker3RelationModel 
 -    LookupDistmultRelationModel
 -    LookupComplexRelationModel
 
-###### Token based model to compute the entity and relation embeddings by pooling token embeddings
+##### Token based model to compute the entity and relation embeddings by pooling token embeddings
 
 -    UnigramPoolingComplexRelationModel
 
-###### Token based model to compute the entity and relation embeddings with a sliding window CNN
+##### Token based model to compute the entity and relation embeddings with a sliding window CNN
 
 -    BigramPoolingComplexRelationModel 
 
-###### Token based model to compute the entity and relation embeddings with a LSTM
+##### Token based model to compute the entity and relation embeddings with a LSTM
 
 -    LSTMDistmultRelationModel 
 -    LSTMComplexRelationModel
 -    LSTMTucker3RelationModel
 
-###### Diagnostic models
+##### Diagnostic models
 
 -    DataBiasOnlyEntityModel 
 -    DataBiasOnlyRelationModel 
@@ -173,7 +173,7 @@ and then start the server in with ./bin/elasticsearch. Then run the preprocessin
 python scripts/create_data.py -c config/preprocessing/prototype.yaml
 ```
 
-###### Prepared configurations to create OLPBENCH from scratch
+##### Prepared configurations to create OLPBENCH from scratch
     
 
 - [config/preprocessing/prototype.yaml](config/preprocessing/prototype.yaml) a configuration for prototyping the pipeline
@@ -182,9 +182,28 @@ python scripts/create_data.py -c config/preprocessing/prototype.yaml
 
 
 
+## Use this code for experiments on FB15k237
 
+##### Prepare data
 
+```  
+cd data/fb15k237
+python prepare_fb237.py
+```  
 
+##### Prepared configurations
+
+A token-based model:
+
+- [config/fb15k237/fb15k237-complex-lstm.yaml](config/fb15k237/fb15k237-complex-lstm.yaml) is a configuration to train a OpenKGE model on FB15k237 using token descriptions of the data.
+
+- [config/fb15k237/fb15k237-complex-kge.yaml](config/fb15k237/fb15k237-complex-kge.yaml) is a configuration to train a OpenKGE model on FB15k237 using standard KGE lookup embeddings of the data.
+
+## FAQ
+
+##### What is the meaning of the prefixes for some relation tokens?
+
+This is additional information about how a triple was extracted. For example, *has:impl_poss-clause* was extracted from a sentence which did not explicitly say "New York has a mayor ...", but from a implicit possessive relation, similar to a construction in "New York's mayor ...". OLPBENCH is based on OPIEC (https://openreview.net/forum?id=HJxeGb5pTm) which was created with the system MINIE (see Implicit extractions in https://aclanthology.org/D17-1278.pdf), which uses the patterns described in FINET (https://aclanthology.org/D15-1103.pdf). Check out the last two papers to learn more about the implicit extractions that can occur in this dataset. Some of those patterns can be noisy and therefore might require special treatment, which is why this information is present in the data. For instance, for the evaluation data we chose the heuristic to sample only from relations with three or more words. This automatically excluded some implicit extractions for evaluation. If a model cannot handle this additional information then a simple approach is to just ignore everything after the colon. In our work we treated *has:impl_poss-clause* as a different token from *has*.
 
 ## Citation
 
