@@ -81,7 +81,7 @@ python scripts/train.py config/acl2020-openlink/wikiopenlink-thorough-complex-ls
 
 _--resume_ expects the path to a checkpoint file. Checkpoints of the current state and also the best model(s) w.r.t. a model selection metric are saved during training within _data/experiments_ by default. If you are resuming from a checkpoint, note that the number of _epochs_ in the config needs to be more than the number of epochs the checkpoint was already trained for (and not the extra number of epochs). You can set the _--epochs_ and _--resume_ on command line or set them manually in the config file. 
 
-The output log file is present in the model's _data/experiments_. Each _resume_ creates a new log file in the same directory.
+The output log file is present in the model's _data/experiments_ subdirectory. Each _resume_ creates a new log file in the same directory.
 
 ##### Prepared configurations
     
