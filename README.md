@@ -107,7 +107,7 @@ An example standard KGE model for the the Freebase FB15k-237 benchmark.
 Run evaluation after training on test data with:
 
 ```  
-python scripts/train.py --resume data/experiments/.../checkpoint.pth.tar --evaluate True --evaluate_on_validation False
+python scripts/train.py config/acl2020-openlink/wikiopenlink-thorough-complex-lstm.yaml --resume data/experiments/.../checkpoint.pth.tar --evaluate True --evaluate_on_validation False
 ```  
 
 _--evaluate_on_validation False_ sets the evaluation to run on test data
