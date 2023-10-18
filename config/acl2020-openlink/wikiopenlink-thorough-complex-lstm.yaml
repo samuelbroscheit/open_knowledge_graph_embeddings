@@ -23,10 +23,10 @@ model: LookupComplexRelationModel
 # configure the model's arguments
 model_config:
   dropout: 0.1
-  entity_slot_size: 512
+  entity_slot_size: 384
   init_std: 0.1
   normalize: batchnorm
-  relation_slot_size: 512
+  relation_slot_size: 384
   sparse: false
 
 experiment_settings:
@@ -84,7 +84,7 @@ model_select_metric:
 patience_metric_change: 1.0e-05
 patience_metric_max_treshold: null
 patience_metric_min_treshold: null
-patience_epochs: 50
+patience_epochs: 5
 
 
 ############### DATASET
