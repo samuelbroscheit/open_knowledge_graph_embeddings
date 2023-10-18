@@ -19,7 +19,7 @@ evaluate: false
 ############### MODEL
 
 # configure the model class
-model: LSTMComplexRelationModel
+model: LookupComplexRelationModel
 # configure the model's arguments
 model_config:
   dropout: 0.1
@@ -43,9 +43,9 @@ experiment_settings:
 ############### TRAINING
 
 # max epochs to run
-epochs: 100
+epochs: 15
 # batch size
-batch_size: 4096
+batch_size: 512
 # label smoothing for BCE loss
 bce_label_smoothing: 0.0
 # learning rate schduler config kwargs dict to tunnel through to pytorch;
@@ -150,7 +150,7 @@ training_dataset_class: OneToNMentionRelationDataset
 # training data settings
 train_data_config:
   input_file: train_data_thorough.txt
-  batch_size: 4096 # if batch size undefined here then global batch size is used
+  batch_size: 512 # if batch size undefined here then global batch size is used
   use_batch_shared_entities: True
   min_size_batch_labels: 4096
   max_size_prefix_label: 64
