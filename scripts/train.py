@@ -104,9 +104,8 @@ def main(args, hyper_setting='', time_stamp=datetime.now().strftime('%Y-%m-%d_%H
     )
 
     #FP16
-    for batch_size, (inputs, labels) in enumerate(train_loader):
+    for batch_size, inputs in enumerate(train_loader):
         inputs = inputs.to(device).half()
-        labels = labels.to(device)
 
     val_loader = evaluation_data.get_loader(
         shuffle=False,
@@ -115,9 +114,8 @@ def main(args, hyper_setting='', time_stamp=datetime.now().strftime('%Y-%m-%d_%H
     )
 
     #FP16
-    for batch_size, (inputs, labels) in enumerate(val_loader):
+    for batch_size, inputs in enumerate(val_loader):
         inputs = inputs.to(device).half()
-        labels = labels.to(device)
 
     # create trainer
 
