@@ -2,4 +2,6 @@ torch>=1.10.0
 elasticsearch
 avro
 numpy
-pandas
+pandas==1.5.3
+tqdm
+pyyaml

@@ -86,6 +86,13 @@ def main(args, hyper_setting='', time_stamp=datetime.now().strftime('%Y-%m-%d_%H
     args["model_config"]['train_data'] = train_data.get_dataset_meta_dict()
 
     model = getattr(Models, args["model"])(**args["model_config"])
+
+    #FP16 precision
+    model.half()
+    for layer in model.modules():
+        if isinstance(layer, nn.BatchNorm2d):
+            layer.float()
+            
     logging.info(model)
 
     # define data loaders
@@ -96,11 +103,19 @@ def main(args, hyper_setting='', time_stamp=datetime.now().strftime('%Y-%m-%d_%H
         drop_last=True,
     )
 
+    #FP16
+    for batch_size, inputs in enumerate(train_loader):
+        inputs = inputs.to(device).half()
+
     val_loader = evaluation_data.get_loader(
         shuffle=False,
         num_workers=0,
         drop_last=False,
     )
+
+    #FP16
+    for batch_size, inputs in enumerate(val_loader):
+        inputs = inputs.to(device).half()
 
     # create trainer
 
